@@ -24,6 +24,13 @@ namespace TextTool.Inspect
             textBox1.Text = txt;
         }
 
+        public SaveTextForm(string[] lines)
+        {
+            InitializeComponent();
+
+            textBox1.Lines = lines;
+        }
+
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             FormExtension.SelectAllTextWhenCtrl_A(sender, e);

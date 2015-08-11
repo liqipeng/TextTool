@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormExclude.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormExclude.Designer.cs">
+      <DependentUpon>FormExclude.cs</DependentUpon>
+    </Compile>
     <Compile Include="InspectUtil.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -70,6 +76,9 @@
     <Compile Include="SearchItem.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormExclude.resx">
+      <DependentUpon>FormExclude.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

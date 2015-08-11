@@ -116,5 +116,11 @@ namespace TextTool.Inspect
         {
             util.Stop();
         }
+
+        private void btnExclude_Click(object sender, EventArgs e)
+        {
+            FormExclude formExclude = new FormExclude();
+            formExclude.ShowDialog();
+        }
     }
 }
