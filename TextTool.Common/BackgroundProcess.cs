@@ -75,7 +75,7 @@ namespace TextTool.Common
 
         protected void Complete()
         {
-            if (OnProgressChanged != null)
+            if (Completed != null)
             {
                 Completed();
             }
@@ -120,10 +120,25 @@ namespace TextTool.Common
                 throw new InvalidOperationException("filePath is invalid.");
             }
 
-            Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
-            string content = File.ReadAllText(filePath, encoding);
+            byte[] bytesRead = File.ReadAllBytes(filePath);
+            string content = Encoding.Default.GetString(bytesRead);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
-            File.WriteAllText(filePath, replacedContent, encoding);
+            byte[] bytesW = Encoding.Default.GetBytes(replacedContent);
+            File.WriteAllBytes(filePath, bytesW);
+
+            //StreamReader reader = new StreamReader(filePath);
+            //string content = reader.ReadToEnd();
+            //reader.Close();
+
+            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
+            //StreamWriter writer = new StreamWriter(filePath);
+            //writer.Write(replacedContent);
+            //writer.Close();
+
+            //Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
+            //string content = File.ReadAllText(filePath, encoding);
+            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
+            //File.WriteAllText(filePath, replacedContent, encoding);
         }
     }
 }
