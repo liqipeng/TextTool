@@ -12,7 +12,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            string folderPath = @"C:\Users\Johnn\Desktop\新建文件夹 (2)";
+            string folderPath = @"d:\Users\liqp\Desktop\新建文件夹";
             string filePattern = @"*.txt";
 
             foreach (string file in Directory.GetFiles(folderPath))
