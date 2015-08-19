@@ -121,37 +121,6 @@ namespace TextTool.Common
                 throw new InvalidOperationException("filePath is invalid.");
             }
 
-            //byte[] bytesRead = File.ReadAllBytes(filePath);
-            //string content = Encoding.Default.GetString(bytesRead);
-            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
-            //byte[] bytesW = Encoding.Default.GetBytes(replacedContent);
-            //File.WriteAllBytes(filePath, bytesW);
-
-            //StreamReader reader = new StreamReader(filePath);
-            //string content = reader.ReadToEnd();
-            //reader.Close();
-
-            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
-            //StreamWriter writer = new StreamWriter(filePath);
-            //writer.Write(replacedContent);
-            //writer.Close();
-
-            //探测成功
-            //byte[] rowData = File.ReadAllBytes(filePath);
-            //Encoding encoding = EncodingTools.DetectInputCodepage(rowData);
-            //if (encoding == Encoding.UTF8 && rowData[0] == 0xEF && rowData[1] == 0xBB && rowData[2] == 0xBF)
-            //{
-            //    encoding = new UTF8Encoding(true);
-            //}
-            //else if (encoding == Encoding.UTF8)
-            //{
-            //    encoding = new UTF8Encoding(false);
-            //}
-            //Console.WriteLine("{0} - {1} - {2}", new FileInfo(filePath).Name, encoding.EncodingName, encoding.BodyName);
-            //string content = File.ReadAllText(filePath, encoding);
-            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
-            //File.WriteAllText(filePath, replacedContent, encoding);
-
             Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
             string content = File.ReadAllText(filePath, encoding);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
