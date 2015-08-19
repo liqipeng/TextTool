@@ -1,4 +1,5 @@
-﻿using System;
+﻿using href.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,37 +22,28 @@ FileAccess.Read);
 
         public static Encoding GetFileEncoding(FileStream fileStream)
         {
-            /*byte[] Unicode=new byte[]{0xFF,0xFE};  
-            byte[] UnicodeBIG=new byte[]{0xFE,0xFF};  
-            byte[] UTF8=new byte[]{0xEF,0xBB,0xBF};*/
-
-            BinaryReader r = new BinaryReader(fileStream, Encoding.Default);
-            byte[] ss = r.ReadBytes(4);
-            r.Close();
-            //编码类型 Coding=编码类型.ASCII;   
-            if (ss.Length > 0 && ss[0] <= 0xEF)
-            {
-                if (ss[0] == 0xEF && ss[1] == 0xBB && ss[2] == 0xBF)
-                {
-                    return Encoding.UTF8;
-                }
-                else if (ss[0] == 0xFE && ss[1] == 0xFF)
-                {
-                    return Encoding.BigEndianUnicode;
-                }
-                else if (ss[0] == 0xFF && ss[1] == 0xFE)
-                {
-                    return Encoding.Unicode;
-                }
-                else
-                {
-                    return Encoding.Default;
-                }
-            }
-            else
+            if (fileStream.Length <= 0)
             {
                 return Encoding.Default;
             }
+
+            //探测前256个字节
+            int detectLength = 256;
+            byte[] rawData = new byte[detectLength];
+            fileStream.Read(rawData, 0, detectLength);
+            Encoding encoding = EncodingTools.DetectInputCodepage(rawData);
+
+            //区分utf8是否有BOM标记
+            if (encoding == Encoding.UTF8 && rawData[0] == 0xEF && rawData[1] == 0xBB && rawData[2] == 0xBF)
+            {
+                encoding = new UTF8Encoding(true);
+            }
+            else if (encoding == Encoding.UTF8)
+            {
+                encoding = new UTF8Encoding(false);
+            }
+
+            return encoding;
         }
     }
 }

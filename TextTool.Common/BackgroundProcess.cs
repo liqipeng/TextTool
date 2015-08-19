@@ -136,25 +136,28 @@ namespace TextTool.Common
             //writer.Write(replacedContent);
             //writer.Close();
 
-            byte[] rowData = File.ReadAllBytes(filePath);
-            Encoding encoding = EncodingTools.DetectInputCodepage(rowData);
-            if (encoding == Encoding.UTF8 && rowData[0] == 0xEF && rowData[1] == 0xBB && rowData[2] == 0xBF)
-            {
-                encoding = new UTF8Encoding(true);
-            }
-            else if (encoding == Encoding.UTF8)
-            {
-                encoding = new UTF8Encoding(false);
-            }
-            Console.WriteLine("{0} - {1} - {2}", new FileInfo(filePath).Name, encoding.EncodingName, encoding.BodyName);
+            //探测成功
+            //byte[] rowData = File.ReadAllBytes(filePath);
+            //Encoding encoding = EncodingTools.DetectInputCodepage(rowData);
+            //if (encoding == Encoding.UTF8 && rowData[0] == 0xEF && rowData[1] == 0xBB && rowData[2] == 0xBF)
+            //{
+            //    encoding = new UTF8Encoding(true);
+            //}
+            //else if (encoding == Encoding.UTF8)
+            //{
+            //    encoding = new UTF8Encoding(false);
+            //}
+            //Console.WriteLine("{0} - {1} - {2}", new FileInfo(filePath).Name, encoding.EncodingName, encoding.BodyName);
+            //string content = File.ReadAllText(filePath, encoding);
+            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
+            //File.WriteAllText(filePath, replacedContent, encoding);
+
+            Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
             string content = File.ReadAllText(filePath, encoding);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
             File.WriteAllText(filePath, replacedContent, encoding);
 
-            //Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
-            //string content = File.ReadAllText(filePath, encoding);
-            //string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
-            //File.WriteAllText(filePath, replacedContent, encoding);
+            Console.WriteLine("{0} - {1} - {2}", new FileInfo(filePath).Name, encoding.EncodingName, encoding.BodyName);
         }
     }
 }
