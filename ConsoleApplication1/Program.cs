@@ -22,12 +22,12 @@ namespace ConsoleApplication1
             string folderPath = @"C:\Users\Johnn\Desktop\新建文件夹 (2)";
             string filePattern = @"*.txt";
 
-            foreach (string file in Directory.GetFiles(folderPath))
-            {
-                Console.WriteLine();
-                Console.WriteLine(new FileInfo(file).Name);
-                Console.WriteLine(EncodingUtil.GetFileEncoding(file));
-            }
+            //foreach (string file in Directory.GetFiles(folderPath))
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine(new FileInfo(file).Name);
+            //    Console.WriteLine(EncodingUtil.GetFileEncoding(file));
+            //}
 
             Dictionary<string, string> dictRegex = new Dictionary<string, string>() 
             {

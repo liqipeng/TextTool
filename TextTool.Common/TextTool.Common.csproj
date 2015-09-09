@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundProcess.cs" />
+    <Compile Include="EncodingUtil2.cs" />
     <Compile Include="TextFileEncodingDetector.cs" />
     <Compile Include="EncodingUtil.cs" />
     <Compile Include="ITask.cs" />

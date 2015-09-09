@@ -70,7 +70,7 @@ FileAccess.Read);
                 var arr = utf8.GetPreamble();
                 if (arr != null)
                 {
-                    Console.Write(", WithBOM: {0}", new string(arr.Select(i => (char)i).ToArray()));
+                    Console.Write(", WithBOM: {0}", string.Join("", arr.Select(i => i.ToString("X"))));
                 }
                 else 
                 {

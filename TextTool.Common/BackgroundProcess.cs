@@ -123,6 +123,7 @@ namespace TextTool.Common
 
             //Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
             Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(filePath, Encoding.Default);
+            //Encoding encoding = EncodingUtil2.GetFileEncoding(filePath);
             encoding.Print();
             string content = File.ReadAllText(filePath, encoding);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
