@@ -12,7 +12,14 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            string folderPath = @"d:\Users\liqp\Desktop\新建文件夹";
+            TestReplaceText();
+
+            Console.Read();
+        }
+
+        private static void TestReplaceText()
+        {
+            string folderPath = @"C:\Users\Johnn\Desktop\新建文件夹 (2)";
             string filePattern = @"*.txt";
 
             foreach (string file in Directory.GetFiles(folderPath))
@@ -41,8 +48,6 @@ namespace ConsoleApplication1
             //u.OnProgressChanged += (progress) => { Console.Write("."); };
             u.Completed += () => { Console.Write("Completed"); };
             u.Start(lstRegexItems);
-
-            Console.Read();
         }
     }
 }

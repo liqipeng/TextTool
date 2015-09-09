@@ -31,6 +31,12 @@ FileAccess.Read);
             int detectLength = 256;
             byte[] rawData = new byte[detectLength];
             fileStream.Read(rawData, 0, detectLength);
+
+            if (rawData[0] == 0xEF && rawData[1] == 0xBB && rawData[2] == 0xBF)
+            {
+                return new UTF8Encoding(true);
+            }
+
             Encoding encoding = EncodingTools.DetectInputCodepage(rawData);
 
             //区分utf8是否有BOM标记
@@ -44,6 +50,35 @@ FileAccess.Read);
             }
 
             return encoding;
+        }
+    }
+
+    public static class EncodingExtension 
+    {
+        public static void Print(this Encoding encoding) 
+        {
+            if (encoding == null) 
+            {
+                Console.WriteLine("NULL");
+            }
+
+            Console.Write("EncodingName: {0}, BodyName: {1}, WebName:{2}", encoding.EncodingName, encoding.BodyName, encoding.WebName);
+
+            UTF8Encoding utf8 = encoding as UTF8Encoding;
+            if (utf8 != null) 
+            {
+                var arr = utf8.GetPreamble();
+                if (arr != null)
+                {
+                    Console.Write(", WithBOM: {0}", new string(arr.Select(i => (char)i).ToArray()));
+                }
+                else 
+                {
+                    Console.Write(", WithBOM: {0}", "NONE");
+                }
+            }
+            
+            Console.WriteLine();
         }
     }
 }

@@ -121,12 +121,15 @@ namespace TextTool.Common
                 throw new InvalidOperationException("filePath is invalid.");
             }
 
-            Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
+            //Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
+            Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(filePath, Encoding.Default);
+            encoding.Print();
             string content = File.ReadAllText(filePath, encoding);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
             File.WriteAllText(filePath, replacedContent, encoding);
 
-            Console.WriteLine("{0} - {1} - {2}", new FileInfo(filePath).Name, encoding.EncodingName, encoding.BodyName);
+            Console.Write(new FileInfo(filePath).Name + ", ");
+            encoding.Print();
         }
     }
 }
