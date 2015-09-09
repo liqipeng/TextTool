@@ -1,0 +1,3 @@
+public static string TrimAllWithLinq(string str) +AHs-
+    return new string(str.Where(c +AD0APg- +ACE-isWhiteSpace(c)).ToArray())+ADs-
++AH0-

@@ -1,0 +1,11 @@
+删除字符串的不同方法
+
+我用各种不同的方法来实现删除字符串中的所有空白。
+
+分离合并法
+
+这是我一直在用的一个非常简单的方法。根据空格字符分离字符串，但不包括空项，然后将产生的碎片重新合并到一起。这方法听上去有点傻乎乎的，而事实上，乍一看，很像是一个非常浪费的解决方式：
+
+public static string TrimAllWithSplitAndJoin(string str) {
+    return string.Concat(str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+}
