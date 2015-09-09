@@ -19,7 +19,7 @@ namespace ConsoleApplication1
 
         private static void TestReplaceText()
         {
-            string folderPath = @"C:\Users\Johnn\Desktop\新建文件夹 (2)";
+            string folderPath = Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, "EncodingTestFiles");
             string filePattern = @"*.txt";
 
             //foreach (string file in Directory.GetFiles(folderPath))
