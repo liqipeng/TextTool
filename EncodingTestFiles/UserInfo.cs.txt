@@ -1,0 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Corp.IT.AAAAB.BBCCC.CDDD
+{   
+    /// <summary>
+    ///  ”√ªß√˚√‹¬Î
+    /// </summary>
+    [Serializable]
+    public class UserInfo
+    {
+
+    }
+}
