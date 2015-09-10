@@ -128,9 +128,9 @@ namespace TextTool.Common
             string content = File.ReadAllText(filePath, encoding);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
             File.WriteAllText(filePath, replacedContent, encoding);
-
-            Console.Write(new FileInfo(filePath).Name + ", ");
-            encoding.Print();
+            Console.WriteLine(".");
+            //Console.Write(new FileInfo(filePath).Name + ", ");
+            //encoding.Print();
         }
     }
 }

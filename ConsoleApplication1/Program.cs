@@ -22,6 +22,9 @@ namespace ConsoleApplication1
             string folderPath = Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, "EncodingTestFiles");
             string filePattern = @"*.txt";
 
+            //string folderPath = @"D:\TestFiles";
+            //string filePattern = "*.cs";
+
             //foreach (string file in Directory.GetFiles(folderPath))
             //{
             //    Console.WriteLine();
@@ -31,7 +34,7 @@ namespace ConsoleApplication1
 
             Dictionary<string, string> dictRegex = new Dictionary<string, string>() 
             {
-                { "aaaa", "bbb" }
+                { "aaaafadfa", "bsfafbb" }
             };
             var allFiles = Directory.GetFiles(folderPath, filePattern, SearchOption.AllDirectories).ToList();
             List<RegexItem> lstRegexItems = new List<RegexItem>();

@@ -116,6 +116,11 @@ OF SUCH DAMAGE.
                 InputFileStream.Read(sampleBytes, bomBytes.Length, sampleBytes.Length - bomBytes.Length);
             InputFileStream.Position = originalPos;
 
+            if (IsUTF8BytesWithoutBOM(sampleBytes))
+            {
+                return new UTF8Encoding(false);
+            }
+
             //test byte array content
             encodingFound = DetectUnicodeInByteSampleByHeuristics(sampleBytes);
 
@@ -179,11 +184,6 @@ OF SUCH DAMAGE.
             if (BOMBytes[0] == 0xef && BOMBytes[1] == 0xbb && BOMBytes[2] == 0xbf)
                 //return Encoding.UTF8;
                 return new UTF8Encoding(true);
-
-            if (IsUTF8BytesWithoutBOM(BOMBytes)) 
-            {
-                return new UTF8Encoding(false);
-            }
 
             if (BOMBytes[0] == 0x2b && BOMBytes[1] == 0x2f && BOMBytes[2] == 0x76)
                 return Encoding.UTF7;
