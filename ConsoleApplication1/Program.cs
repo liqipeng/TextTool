@@ -24,6 +24,7 @@ namespace ConsoleApplication1
 
             //string folderPath = @"D:\TestFiles";
             //string filePattern = "*.cs";
+            //string filePattern = "*.csproj";
 
             //foreach (string file in Directory.GetFiles(folderPath))
             //{

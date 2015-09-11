@@ -62,7 +62,8 @@ FileAccess.Read);
                 Console.WriteLine("NULL");
             }
 
-            Console.Write("EncodingName: {0}, BodyName: {1}, WebName:{2}", encoding.EncodingName, encoding.BodyName, encoding.WebName);
+            //Console.Write("EncodingName: {0}, BodyName: {1}, WebName:{2}", encoding.EncodingName, encoding.BodyName, encoding.WebName);
+            Console.Write("{0}", encoding.WebName);
 
             UTF8Encoding utf8 = encoding as UTF8Encoding;
             if (utf8 != null) 

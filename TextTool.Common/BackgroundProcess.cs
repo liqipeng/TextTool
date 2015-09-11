@@ -122,17 +122,16 @@ namespace TextTool.Common
             }
 
             //Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
-            //Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(filePath, Encoding.Default);
+            Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(filePath, Encoding.Default);
             //Encoding encoding = EncodingUtil2.GetFileEncoding(filePath);
-            Encoding encoding = EncodingUtil3.GetFileEncoding(filePath);
+            //Encoding encoding = EncodingUtil3.GetFileEncoding(filePath);
 
-            encoding.Print();
             string content = File.ReadAllText(filePath, encoding);
             string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
             File.WriteAllText(filePath, replacedContent, encoding);
-            Console.WriteLine(".");
-            //Console.Write(new FileInfo(filePath).Name + ", ");
-            //encoding.Print();
+            //Console.Write(".");
+            Console.Write(new FileInfo(filePath).Name + ", ");
+            encoding.Print();
         }
     }
 }
