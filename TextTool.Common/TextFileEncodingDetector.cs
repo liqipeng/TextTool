@@ -70,6 +70,11 @@ OF SUCH DAMAGE.
 
         const long _defaultHeuristicSampleSize = 0x10000; //completely arbitrary - inappropriate for high numbers of files / high speed requirements
 
+        public static Encoding DetectTextFileEncoding(string InputFilename)
+        {
+            return DetectTextFileEncoding(InputFilename, Encoding.Default);
+        }
+
         public static Encoding DetectTextFileEncoding(string InputFilename, Encoding DefaultEncoding)
         {
             using (FileStream textfileStream = File.OpenRead(InputFilename))

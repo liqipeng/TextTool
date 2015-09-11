@@ -28,7 +28,7 @@ namespace TextTool.Inspect
                 Task task = new Task(() =>
                 {
                     string file = oDialog.FileName;
-                    Encoding encoding = EncodingUtil.GetFileEncoding(file);
+                    Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(file);
                     string[] lines = File.ReadAllLines(file, encoding);
                     List<string> lstResult = new List<string>();
 

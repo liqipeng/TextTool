@@ -51,7 +51,7 @@ namespace TextTool.Replacement
             foreach (var strRegex in _dictRegexes.Keys)
             {
                 Regex regex = new Regex(strRegex);
-                matchedFiles = allFiles.Where(file => regex.IsMatch(File.ReadAllText(file, EncodingUtil.GetFileEncoding(file)))).ToList();
+                matchedFiles = allFiles.Where(file => regex.IsMatch(File.ReadAllText(file, TextFileEncodingDetector.DetectTextFileEncoding(file)))).ToList();
 
 
                 if (matchedFiles.Count > 0) 
@@ -61,7 +61,7 @@ namespace TextTool.Replacement
 
                     matchedFiles.ForEach(file =>
                     {
-                        Encoding encoding = EncodingUtil.GetFileEncoding(file);
+                        Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(file);
                         string content = File.ReadAllText(file, encoding);
                         sum += regex.Matches(content).Count;
                         string replacedContent = regex.Replace(content, _dictRegexes[strRegex]);

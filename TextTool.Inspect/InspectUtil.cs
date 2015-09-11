@@ -63,7 +63,7 @@ namespace TextTool.Inspect
                     if (!isStop)
                     {
                         WriteToLog(".");
-                        return regex.IsMatch(File.ReadAllText(file, EncodingUtil.GetFileEncoding(file)));
+                        return regex.IsMatch(File.ReadAllText(file, TextFileEncodingDetector.DetectTextFileEncoding(file)));
                     }
                     else 
                     {
