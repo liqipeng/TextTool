@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TextTool.Common
 {
     public abstract class BackgroundProcess<T> where T : ITask
     {
+        private CancellationTokenSource cancelTokenSource;
         protected bool IsStopped { get; set; }
         public BackgroundProcess()
         {
@@ -24,8 +26,10 @@ namespace TextTool.Common
             }
 
             this.IsStopped = false;
+            cancelTokenSource = new CancellationTokenSource();
 
             int totalTaskItemsCount = taskItems.Count;
+
             new Task(() =>
             {
                 for (int i = 1; !this.IsStopped && i <= totalTaskItemsCount; i++)
@@ -37,12 +41,16 @@ namespace TextTool.Common
                 }
 
                 Complete();
-            }).Start();
+            }, cancelTokenSource.Token);
         }
 
         public void Stop()
         {
             this.IsStopped = true;
+            if (this.cancelTokenSource != null) 
+            {
+                this.cancelTokenSource.Cancel();
+            }
         }
 
         protected void DoTaskItem(T taksItem) 
