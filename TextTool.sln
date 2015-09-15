@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.Common.Test", "Tex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.Common.Example", "TextTool.Common.Example\TextTool.Common.Example.csproj", "{32C792FB-1F83-40A7-B6BF-C5628E36C5CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.Common.WindowsForm", "TextTool.Common.WindowsForm\TextTool.Common.WindowsForm.csproj", "{536D2642-51E2-4011-A08A-024E1AA892EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.Common.WindowsForm.Example", "TextTool.Common.WindowsForm.Example\TextTool.Common.WindowsForm.Example.csproj", "{DA31CC11-B456-47FC-A60F-BEE650C6D70A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{32C792FB-1F83-40A7-B6BF-C5628E36C5CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C792FB-1F83-40A7-B6BF-C5628E36C5CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32C792FB-1F83-40A7-B6BF-C5628E36C5CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536D2642-51E2-4011-A08A-024E1AA892EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536D2642-51E2-4011-A08A-024E1AA892EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536D2642-51E2-4011-A08A-024E1AA892EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536D2642-51E2-4011-A08A-024E1AA892EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

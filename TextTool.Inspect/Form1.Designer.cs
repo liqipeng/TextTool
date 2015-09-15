@@ -43,7 +43,7 @@
             // txtFolder
             // 
             this.txtFolder.Location = new System.Drawing.Point(100, 12);
-            this.txtFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFolder.Margin = new System.Windows.Forms.Padding(4);
             this.txtFolder.Name = "txtFolder";
             this.txtFolder.Size = new System.Drawing.Size(876, 25);
             this.txtFolder.TabIndex = 0;
@@ -61,7 +61,7 @@
             // btnChooseFolder
             // 
             this.btnChooseFolder.Location = new System.Drawing.Point(1131, 10);
-            this.btnChooseFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChooseFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnChooseFolder.Name = "btnChooseFolder";
             this.btnChooseFolder.Size = new System.Drawing.Size(153, 29);
             this.btnChooseFolder.TabIndex = 2;
@@ -72,7 +72,7 @@
             // btnCheck
             // 
             this.btnCheck.Location = new System.Drawing.Point(3, 405);
-            this.btnCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCheck.Margin = new System.Windows.Forms.Padding(4);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(423, 29);
             this.btnCheck.TabIndex = 3;
@@ -83,7 +83,7 @@
             // txtRegexes
             // 
             this.txtRegexes.Location = new System.Drawing.Point(3, 49);
-            this.txtRegexes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRegexes.Margin = new System.Windows.Forms.Padding(4);
             this.txtRegexes.Multiline = true;
             this.txtRegexes.Name = "txtRegexes";
             this.txtRegexes.Size = new System.Drawing.Size(1432, 348);
@@ -93,7 +93,7 @@
             // txtLog
             // 
             this.txtLog.Location = new System.Drawing.Point(3, 441);
-            this.txtLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLog.Margin = new System.Windows.Forms.Padding(4);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.Size = new System.Drawing.Size(1432, 295);
@@ -103,7 +103,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1384, 10);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(52, 29);
             this.button1.TabIndex = 5;
@@ -114,7 +114,7 @@
             // txtFilePattern
             // 
             this.txtFilePattern.Location = new System.Drawing.Point(987, 12);
-            this.txtFilePattern.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFilePattern.Margin = new System.Windows.Forms.Padding(4);
             this.txtFilePattern.Name = "txtFilePattern";
             this.txtFilePattern.Size = new System.Drawing.Size(135, 25);
             this.txtFilePattern.TabIndex = 6;
@@ -124,7 +124,7 @@
             // 
             this.btnCancel.Enabled = false;
             this.btnCancel.Location = new System.Drawing.Point(435, 405);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(251, 29);
             this.btnCancel.TabIndex = 7;
@@ -134,12 +134,12 @@
             // 
             // btnExclude
             // 
-            this.btnExclude.Location = new System.Drawing.Point(1336, 405);
-            this.btnExclude.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExclude.Location = new System.Drawing.Point(1235, 405);
+            this.btnExclude.Margin = new System.Windows.Forms.Padding(4);
             this.btnExclude.Name = "btnExclude";
-            this.btnExclude.Size = new System.Drawing.Size(100, 29);
+            this.btnExclude.Size = new System.Drawing.Size(201, 29);
             this.btnExclude.TabIndex = 8;
-            this.btnExclude.Text = "Exclude";
+            this.btnExclude.Text = "从VS的搜索结果中排除";
             this.btnExclude.UseVisualStyleBackColor = true;
             this.btnExclude.Click += new System.EventHandler(this.btnExclude_Click);
             // 
@@ -159,7 +159,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtFolder);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
