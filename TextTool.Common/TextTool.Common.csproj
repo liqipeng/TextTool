@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundProcessV2`T.cs" />
     <Compile Include="BackgroundProcess.cs" />
     <Compile Include="EncodingExtension.cs" />
     <Compile Include="ITasksFactory`T.cs" />

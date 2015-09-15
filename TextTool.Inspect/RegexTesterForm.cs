@@ -21,7 +21,7 @@ namespace TextTool.Inspect
         private void txtCode_KeyDown(object sender, KeyEventArgs e)
         {
             TextBox txtBox = sender as TextBox;
-            if (txtBox != null && e.Modifiers == Keys.Control && e.KeyCode == Keys.A) 
+            if (txtBox != null && e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
             {
                 txtBox.SelectAll();
             }
@@ -43,7 +43,7 @@ namespace TextTool.Inspect
             });
         }
 
-        private void Do(Func<string, string, string, string> func) 
+        private void Do(Func<string, string, string, string> func)
         {
             var linesCode = txtCode.Lines.ToList();
             var linesRegexes = txtRegexes.Lines.ToList();
@@ -96,19 +96,19 @@ namespace TextTool.Inspect
             var linesRegexes = txtRegexes.Lines.ToList();
             var linesReplacer = txtReplacer.Lines.ToList();
 
-            var countArr = new int[]{ linesCode.Count, linesRegexes.Count, linesReplacer.Count };
+            var countArr = new int[] { linesCode.Count, linesRegexes.Count, linesReplacer.Count };
 
             int maxLineCount = countArr.Max();
 
             StringBuilder sBuilder = new StringBuilder();
-            
-            for (int i = 0; i < maxLineCount; i++) 
+
+            for (int i = 0; i < maxLineCount; i++)
             {
                 string code = string.Empty;
                 string regex = string.Empty;
                 string repl = string.Empty;
 
-                if (i < linesCode.Count && i <= countArr[0]) 
+                if (i < linesCode.Count && i <= countArr[0])
                 {
                     code = linesCode[i];
                 }
@@ -138,7 +138,7 @@ namespace TextTool.Inspect
             ParseClipboard(txt);
         }
 
-        private void ParseClipboard(string clipboardTxt) 
+        private void ParseClipboard(string clipboardTxt)
         {
             clipboardTxt = clipboardTxt ?? string.Empty;
             string[] lines = clipboardTxt.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -146,8 +146,13 @@ namespace TextTool.Inspect
             List<string> linesRegex = new List<string>();
             List<string> linesRep = new List<string>();
 
-            foreach (string line in lines) 
+            foreach (string line in lines)
             {
+                if (line == null || line.Trim() == string.Empty)
+                {
+                    continue;
+                }
+
                 string[] arr = line.Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
                 try
                 {
@@ -164,6 +169,6 @@ namespace TextTool.Inspect
             txtRegexes.Lines = linesRegex.ToArray();
             txtReplacer.Lines = linesRep.ToArray();
         }
-        
+
     }
 }

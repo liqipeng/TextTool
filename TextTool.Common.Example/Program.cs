@@ -28,7 +28,7 @@ namespace TextTool.Common.Example
             u.OnProgressChanged += (progress, sn, taskItem) =>
             {
                 Console.WriteLine("第{0}个", sn);
-                Console.WriteLine("进度：{0}", progress);
+                Console.WriteLine("进度：{0:F2}", progress);
                 Console.WriteLine("文件名：{0}", taskItem.FileInfo.Name);
                 Console.WriteLine("文件信息：");
                 taskItem.Encoding.Print();

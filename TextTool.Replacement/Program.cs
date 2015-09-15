@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextTool.Common;
 
 namespace TextTool.Replacement
 {
@@ -13,12 +14,20 @@ namespace TextTool.Replacement
         static void Main(string[] args)
         {
             bool showRegexInfo = bool.Parse(ConfigurationManager.AppSettings["showRegexInfo"]);
-            string folderPath = ConfigurationManager.AppSettings["codeFolder"];
-            string filePattern = ConfigurationManager.AppSettings["fileSearchPattern"];
+            //string folderPath = ConfigurationManager.AppSettings["codeFolder"];
+            //string filePattern = ConfigurationManager.AppSettings["fileSearchPattern"];
+
+            string folderPath = Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, "EncodingTestFiles");
+            string filePattern = @"*.txt";
+
+            //Directory.GetFiles(folderPath, "*.cs*").ToList().ForEach((f) => {
+            //    var fi = new FileInfo(f); 
+            //    fi.MoveTo(fi.FullName+".txt");
+            //});
 
             Dictionary<string, string> dictRegex = new Dictionary<string, string>()
             {
-                {@"(a)c(b)","$1CC$2"},
+                {@"(\()[Ss]tring(\s+?str\))","$1Int32$2"},
 
             };
 
@@ -29,9 +38,16 @@ namespace TextTool.Replacement
             }
 
             //处理文本替换
-            ReplaceHelper replaceHelper = new ReplaceHelper(folderPath, filePattern, dictRegex);
-            replaceHelper.Log += (log) => { Console.Write(log); };
-            replaceHelper.Run();
+            BackgroundProcess<ReplaceTaskItem> util = new BackgroundProcess<ReplaceTaskItem>();
+            util.TasksFactory = new ReplaceTaskItemFactory(folderPath, filePattern, dictRegex);
+            util.OnProgressChanged += (progress, sn, taskItem) =>
+            {
+                Console.WriteLine("第{0}个", sn);
+                Console.WriteLine("进度：{0:F2}%", progress * 100);
+                Console.WriteLine("文件名：{0}", new FileInfo(taskItem.FilePath).Name);
+                Console.WriteLine();
+            };
+            util.Start();
 
             Console.ReadKey();
         }

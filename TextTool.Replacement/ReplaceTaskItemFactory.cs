@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,17 @@ namespace TextTool.Replacement
                 throw new InvalidOperationException("正则表达式尚未初始化。");
             }
 
+            List<ReplaceTaskItem> lstReplaceTaskItems = new List<ReplaceTaskItem>();
+            List<string> allFiles = Directory.GetFiles(_folderPath, _filePattern, SearchOption.AllDirectories).ToList();
+            allFiles.ForEach((f)=>{
+                lstReplaceTaskItems.Add(new ReplaceTaskItem() 
+                {
+                    FilePath = f,
+                    RegexAndReplacer = this._dictRegexes
+                });
+            });
 
-
-            throw new NotImplementedException();
+            return lstReplaceTaskItems;
         }
     }
 }

@@ -9,21 +9,13 @@ using System.Threading.Tasks;
 
 namespace TextTool.Common
 {
-    public class BackgroundProcess<T> where T : ITask
+    public abstract class BackgroundProcessV2<T> where T : ITask
     {
         private CancellationTokenSource cancelTokenSource;
-        public BackgroundProcess()
-        {
-        }
 
         public void Start()
         {
-            if (TasksFactory == null)
-            {
-                throw new InvalidOperationException("TasksFactory has not initialized.");
-            }
-
-            List<T> taskItems = TasksFactory.GetTasks();
+            List<T> taskItems = GetTasks();
 
             cancelTokenSource = new CancellationTokenSource();
             int totalTaskItemsCount = taskItems.Count;
@@ -55,11 +47,7 @@ namespace TextTool.Common
             
         }
 
-        public ITasksFactory<T> TasksFactory
-        {
-            get;
-            set;
-        }
+        protected abstract List<T> GetTasks();
 
         public void Stop()
         {

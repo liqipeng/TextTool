@@ -10,108 +10,36 @@ using TextTool.Common;
 
 namespace TextTool.Inspect
 {
-    public class InspectUtil
+    public class InspectUtil : BackgroundProcessV2<InspectItem>
     {
-        public string Folder { get; private set; }
-        public string FilePattern { get; private set; }
+        private Dictionary<string, string> _dictRegexes;
+        private string _folderPath;
+        private string _filePattern;
 
-        private Task task;
-        private bool isStop = false;
-        public InspectUtil(string folder, string filePattern = "*.cs")
+        public InspectUtil(string folderPath, string filePattern, Dictionary<string, string> dictRegex)
         {
-            if (string.IsNullOrWhiteSpace(folder) || !Directory.Exists(folder))
-            {
-                throw new ArgumentException("folder");
-            }
-
-            this.Folder = folder;
-            this.FilePattern = filePattern;
+            this._dictRegexes = dictRegex;
+            this._folderPath = folderPath;
+            this._filePattern = filePattern;
         }
 
-        public void BeginCheck(List<SearchItem> lstSearchItems) 
+        protected override List<InspectItem> GetTasks()
         {
-            if (lstSearchItems == null || lstSearchItems.Count <= 0) 
-            {
-                return;
-            }
-
-            isStop = false;
-            task = new Task(() =>
-            {
-                Process(lstSearchItems);
-
-                if (CheckCompleted != null) 
-                {
-                    CheckCompleted();
-                }
-            });
-            task.Start();
-        }
-
-        private void Process(List<SearchItem> lstSearchItems) 
-        {
-            var allFiles = Directory.GetFiles(Folder, FilePattern, SearchOption.AllDirectories)
+            var allFiles = Directory.GetFiles(_folderPath, _filePattern, SearchOption.AllDirectories)
                 //.Where(f => !f.Contains(@"bin\Debug") && !f.Contains(@"obj\Debug"))
-                .ToList();
-            WriteLineToLog(string.Format("文件夹扫描完毕。文件数：{0}。", allFiles.Count));
-            List<string> matchedFiles;
-            lstSearchItems.ForEach(si =>
-            {
-                Regex regex = new Regex(si.RegexString);
-                matchedFiles = allFiles.Where((file) =>
-                {
-                    if (!isStop)
-                    {
-                        WriteToLog(".");
-                        return regex.IsMatch(File.ReadAllText(file, TextFileEncodingDetector.DetectTextFileEncoding(file)));
-                    }
-                    else 
-                    {
-                        return false;
-                    }
-                }).ToList();
-                WriteLineToLog();
+    .ToList();
+            this.AppendLog(string.Format("文件夹扫描完毕。文件数：{0}。{1}", allFiles.Count, Environment.NewLine));
 
-                if (matchedFiles.Count > 0)
+            List<InspectItem> lstInspectItems = new List<InspectItem>();
+            allFiles.ToList().ForEach((f)=>{
+                lstInspectItems.Add(new InspectItem(base.AppendLog) 
                 {
-                    WriteLineToLog(si.RegexString);
-                    WriteLineToLog(si.ExampleString);
-                    matchedFiles.ForEach(f =>
-                    {
-                        WriteLineToLog(f);
-                    });
-                }
-
-                WriteLineToLog();
+                    FilePath = f,
+                    Regexes = this._dictRegexes
+                });
             });
-        }
 
-        public void Stop() 
-        {
-            isStop = true;
+            return lstInspectItems;
         }
-
-        private void WriteToLog(string log)
-        {
-            if (Log != null)
-            {
-                Log(log);
-            }
-        }
-
-        private void WriteLineToLog(string log = null)
-        {
-            if (Log != null)
-            {
-                Log(log + Environment.NewLine);
-            }
-            else
-            {
-                Log(Environment.NewLine);
-            }
-        }
-
-        public event Action<string> Log;
-        public event Action CheckCompleted;
     }
 }

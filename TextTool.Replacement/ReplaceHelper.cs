@@ -11,103 +11,103 @@ using TextTool.Common;
 
 namespace TextTool.Replacement
 {
-    class ReplaceHelper
-    {
-        private Dictionary<string, string> _dictRegexes;
-        private string _folderPath;
-        private string _filePattern;
+    //class ReplaceHelper
+    //{
+    //    private Dictionary<string, string> _dictRegexes;
+    //    private string _folderPath;
+    //    private string _filePattern;
 
-        public ReplaceHelper(string folderPath, string filePattern, Dictionary<string, string> dictRegex)
-        {
-            this._dictRegexes = dictRegex;
-            this._folderPath = folderPath;
-            this._filePattern = filePattern;
-        }
+    //    public ReplaceHelper(string folderPath, string filePattern, Dictionary<string, string> dictRegex)
+    //    {
+    //        this._dictRegexes = dictRegex;
+    //        this._folderPath = folderPath;
+    //        this._filePattern = filePattern;
+    //    }
 
-        public void Run() 
-        {
-
-
-            Thread thread = new Thread(RunProcess);
-            thread.Start();
-        }
-
-        private void RunProcess() 
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            int sumAll = 0;
-
-            var allFiles = Directory.GetFiles(_folderPath, _filePattern, SearchOption.AllDirectories).ToList();
-            List<string> matchedFiles;
-            foreach (var strRegex in _dictRegexes.Keys)
-            {
-                Regex regex = new Regex(strRegex);
-                matchedFiles = allFiles.Where(file => regex.IsMatch(File.ReadAllText(file, TextFileEncodingDetector.DetectTextFileEncoding(file)))).ToList();
+    //    public void Run() 
+    //    {
 
 
-                if (matchedFiles.Count > 0) 
-                {
-                    WriteLineToLog(string.Format("开始处理表达式：\n{0}=>{1}。", strRegex, _dictRegexes[strRegex]));
-                    int sum = 0;
+    //        Thread thread = new Thread(RunProcess);
+    //        thread.Start();
+    //    }
 
-                    matchedFiles.ForEach(file =>
-                    {
-                        Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(file);
-                        string content = File.ReadAllText(file, encoding);
-                        sum += regex.Matches(content).Count;
-                        string replacedContent = regex.Replace(content, _dictRegexes[strRegex]);
-                        File.WriteAllText(file, replacedContent, encoding);
-                        WriteToLog(">");
-                        //Console.WriteLine(file);
-                    });
-                    if (sum > 0)
-                    {
-                        WriteLineToLog();
-                    }
+    //    private void RunProcess() 
+    //    {
+    //        Stopwatch sw = new Stopwatch();
+    //        sw.Start();
+    //        int sumAll = 0;
 
-                    sumAll += sum;
-                    WriteLineToLog(string.Format("共处理{0}个文件，匹配共计{1}个。", matchedFiles.Count(), sum));
-                    WriteLineToLog();
-                }
+    //        var allFiles = Directory.GetFiles(_folderPath, _filePattern, SearchOption.AllDirectories).ToList();
+    //        List<string> matchedFiles;
+    //        foreach (var strRegex in _dictRegexes.Keys)
+    //        {
+    //            Regex regex = new Regex(strRegex);
+    //            matchedFiles = allFiles.Where(file => regex.IsMatch(File.ReadAllText(file, TextFileEncodingDetector.DetectTextFileEncoding(file)))).ToList();
 
 
-            }
+    //            if (matchedFiles.Count > 0) 
+    //            {
+    //                WriteLineToLog(string.Format("开始处理表达式：\n{0}=>{1}。", strRegex, _dictRegexes[strRegex]));
+    //                int sum = 0;
 
-            sw.Stop();
-            WriteLineToLog();
-            WriteLineToLog("____________________________________________");
-            WriteLineToLog(string.Format("共花费时间{0}秒，匹配总个数{1}。", sw.Elapsed.TotalSeconds, sumAll));
-        }
+    //                matchedFiles.ForEach(file =>
+    //                {
+    //                    Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(file);
+    //                    string content = File.ReadAllText(file, encoding);
+    //                    sum += regex.Matches(content).Count;
+    //                    string replacedContent = regex.Replace(content, _dictRegexes[strRegex]);
+    //                    File.WriteAllText(file, replacedContent, encoding);
+    //                    WriteToLog(">");
+    //                    //Console.WriteLine(file);
+    //                });
+    //                if (sum > 0)
+    //                {
+    //                    WriteLineToLog();
+    //                }
 
-        private void WriteToLog(string log)
-        {
-            if (Log != null)
-            {
-                Log(log);
-            }
-        }
+    //                sumAll += sum;
+    //                WriteLineToLog(string.Format("共处理{0}个文件，匹配共计{1}个。", matchedFiles.Count(), sum));
+    //                WriteLineToLog();
+    //            }
 
-        private void WriteLineToLog(string log = null) 
-        {
-            if (Log != null)
-            {
-                Log(log + Environment.NewLine);
-            }
-            else 
-            {
-                Log(Environment.NewLine);
-            }
-        }
 
-        public event Action<string> Log;
-    }
+    //        }
 
-    class ReplaceHelper3 : BackgroundProcess<ReplaceTaskItem>
-    {
-        public ReplaceHelper3(string folderPath, string filePattern, Dictionary<string, string> dictRegex)
-        {
+    //        sw.Stop();
+    //        WriteLineToLog();
+    //        WriteLineToLog("____________________________________________");
+    //        WriteLineToLog(string.Format("共花费时间{0}秒，匹配总个数{1}。", sw.Elapsed.TotalSeconds, sumAll));
+    //    }
 
-        }
-    }
+    //    private void WriteToLog(string log)
+    //    {
+    //        if (Log != null)
+    //        {
+    //            Log(log);
+    //        }
+    //    }
+
+    //    private void WriteLineToLog(string log = null) 
+    //    {
+    //        if (Log != null)
+    //        {
+    //            Log(log + Environment.NewLine);
+    //        }
+    //        else 
+    //        {
+    //            Log(Environment.NewLine);
+    //        }
+    //    }
+
+    //    public event Action<string> Log;
+    //}
+
+    //class ReplaceHelper : BackgroundProcess<ReplaceTaskItem>
+    //{
+    //    public ReplaceHelper(string folderPath, string filePattern, Dictionary<string, string> dictRegex)
+    //    {
+
+    //    }
+    //}
 }

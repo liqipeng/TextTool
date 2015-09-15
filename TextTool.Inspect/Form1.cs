@@ -25,6 +25,11 @@ namespace TextTool.Inspect
 
             this.txtFolder.Text = folderPath;
             this.txtFilePattern.Text = filePattern;
+
+#if DEBUG
+            this.txtFolder.Text = Path.Combine(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, "EncodingTestFiles");
+            this.txtFilePattern.Text = "*.txt";
+#endif
         }
 
         private void btnChooseFolder_Click(object sender, EventArgs e)
@@ -54,9 +59,18 @@ namespace TextTool.Inspect
                 return;
             }
 
-            util = new InspectUtil(folder);
-            util.Log += AppendLog;
-            util.CheckCompleted += () => {
+            var regexInfo = GetRegexInfo(this.txtRegexes.Text);
+            util = new InspectUtil(folder, this.txtFilePattern.Text.Trim(), regexInfo);
+
+            //util = new InspectUtil(folder, this.txtFilePattern.Text.Trim(), new Dictionary<string, string>() 
+            //{
+            //    { @"(\()[Ss]tring(\s+?str\))", "String aaa" }
+            //});
+            util.OutputingLog += AppendLog;
+            util.OnProgressChanged += (progress, sn, item)=>{
+                AppendLog(".");
+            };
+            util.Completed += () => {
                 if (this.btnCheck.InvokeRequired)
                 {
                     this.btnCheck.Invoke(new Action(() => { 
@@ -77,11 +91,41 @@ namespace TextTool.Inspect
             this.btnCancel.Enabled = true;
             this.btnCheck.Text += "[正在处理...]";
 
-            List<SearchItem> lstSearchItems = new List<SearchItem>()
+            util.Start();
+        }
+
+        private Dictionary<string, string> GetRegexInfo(string inputRegexInfoData) 
+        {
+            inputRegexInfoData = inputRegexInfoData ?? string.Empty;
+            string[] lines = inputRegexInfoData.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> linesCode = new List<string>();
+            List<string> linesRegex = new List<string>();
+            List<string> linesRep = new List<string>();
+
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            foreach (string line in lines)
             {
-                new SearchItem("查找类似于xxxxx", @"aabbcc(xxxxxx)")
-            };
-            util.BeginCheck(lstSearchItems);
+                if (line == null || line.Trim() == string.Empty)
+                {
+                    continue;
+                }
+
+                string[] arr = line.Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                try
+                {
+                    //linesCode.Add(arr[0]);
+                    //linesRegex.Add(arr[1]);
+                    //linesRep.Add(arr[2]);
+                    result.Add(arr[1], arr[0]);
+                }
+                catch(Exception ex)
+                {
+                    AppendLog(ex.Message);
+                }
+            }
+
+            return result;
         }
 
         private List<SearchItem> ParseToSearchItems(string strTable) 
@@ -121,6 +165,16 @@ namespace TextTool.Inspect
         {
             FormExclude formExclude = new FormExclude();
             formExclude.ShowDialog();
+        }
+
+        private void txtRegexes_KeyDown(object sender, KeyEventArgs e)
+        {
+            FormExtension.SelectAllTextWhenCtrl_A(sender, e);
+        }
+
+        private void txtLog_KeyDown(object sender, KeyEventArgs e)
+        {
+            FormExtension.SelectAllTextWhenCtrl_A(sender, e);
         }
     }
 }
