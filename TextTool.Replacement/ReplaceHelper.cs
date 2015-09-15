@@ -26,15 +26,7 @@ namespace TextTool.Replacement
 
         public void Run() 
         {
-            if (string.IsNullOrWhiteSpace(_folderPath))
-            {
-                throw new InvalidOperationException("文件夹路径尚未初始化。");
-            }
 
-            if (_dictRegexes == null)
-            {
-                throw new InvalidOperationException("正则表达式尚未初始化。");
-            }
 
             Thread thread = new Thread(RunProcess);
             thread.Start();
@@ -109,5 +101,13 @@ namespace TextTool.Replacement
         }
 
         public event Action<string> Log;
+    }
+
+    class ReplaceHelper3 : BackgroundProcess<ReplaceTaskItem>
+    {
+        public ReplaceHelper3(string folderPath, string filePattern, Dictionary<string, string> dictRegex)
+        {
+
+        }
     }
 }

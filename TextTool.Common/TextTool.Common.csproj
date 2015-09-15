@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BackgroundProcess.cs" />
     <Compile Include="EncodingExtension.cs" />
+    <Compile Include="ITasksFactory`T.cs" />
     <Compile Include="TextFileEncodingDetector.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

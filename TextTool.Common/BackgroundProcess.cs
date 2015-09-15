@@ -9,44 +9,65 @@ using System.Threading.Tasks;
 
 namespace TextTool.Common
 {
-    public abstract class BackgroundProcess<T> where T : ITask
+    public class BackgroundProcess<T> where T : ITask
     {
         private CancellationTokenSource cancelTokenSource;
-        protected bool IsStopped { get; set; }
         public BackgroundProcess()
         {
-            this.IsStopped = true;
         }
 
-        public void Start(List<T> taskItems)
+        public void Start()
         {
-            if (taskItems == null)
+            if (TasksFactory == null)
             {
-                throw new InvalidOperationException("TaskItems has not initialized.");
+                throw new InvalidOperationException("TasksFactory has not initialized.");
             }
 
-            this.IsStopped = false;
-            cancelTokenSource = new CancellationTokenSource();
+            List<T> taskItems = TasksFactory.GetTasks();
 
+            cancelTokenSource = new CancellationTokenSource();
             int totalTaskItemsCount = taskItems.Count;
 
-            new Task(() =>
+            if (Starting != null) 
             {
-                for (int i = 1; !this.IsStopped && i <= totalTaskItemsCount; i++)
+                Starting();
+            }
+
+            Task.Factory.StartNew(() =>
+            {
+                for (int i = 1; !cancelTokenSource.IsCancellationRequested && i <= totalTaskItemsCount; i++)
                 {
-                    DoTaskItem(taskItems[i - 1]);
+                    T taskItem = taskItems[i - 1];
+                    DoTaskItem(taskItem);
+
+                    TaskItemExecuted(taskItem);
 
                     float progress = i / (totalTaskItemsCount + 0.0f);
-                    NotifyProgress(progress);
+                    NotifyProgress(progress, i, taskItem);
                 }
 
                 Complete();
             }, cancelTokenSource.Token);
         }
 
+        protected virtual void InitTaskItems() 
+        {
+
+        }
+
+        protected virtual void TaskItemExecuted(T taskItem) 
+        {
+            
+        }
+
+        public ITasksFactory<T> TasksFactory
+        {
+            get;
+            set;
+        }
+
         public void Stop()
         {
-            this.IsStopped = true;
             if (this.cancelTokenSource != null) 
             {
                 this.cancelTokenSource.Cancel();
@@ -61,7 +82,7 @@ namespace TextTool.Common
             }
             catch (Exception ex)
             {
-                Error(ex.Message);
+                Error(ex);
             }
         }
 
@@ -73,11 +94,11 @@ namespace TextTool.Common
             }
         }
 
-        protected void NotifyProgress(float progress)
+        protected void NotifyProgress(float progressPercent, int taskItemSequenceNumber, T taskItem)
         {
             if (OnProgressChanged != null)
             {
-                OnProgressChanged(progress);
+                OnProgressChanged(progressPercent, taskItemSequenceNumber, taskItem);
             }
         }
 
@@ -89,58 +110,24 @@ namespace TextTool.Common
             }
         }
 
-        protected void Error(string msg) 
+        protected void Error(Exception exception) 
         {
             if (OnError != null) 
             {
-                OnError(msg);
+                OnError(exception);
             }
         }
 
-        public event Action<float> OnProgressChanged;
+        public event Action<float, int, T> OnProgressChanged;
         public event Action<string> OutputingLog;
+        public event Action Starting;
         public event Action Completed;
-        public event Action<string> OnError;
+        public event Action<Exception> OnError;
     }
 
-    public class InspectUtil : BackgroundProcess<RegexItem> 
-    {
 
-    }
 
-    public class RegexItem : ITask
-    {
-        private string filePath;
-        private string regexString = string.Empty;
-        private string replacer = string.Empty;
 
-        public RegexItem(string filePath, string regexString, string replacer)
-        {
-            this.filePath = filePath;
-            this.regexString = regexString;
-            this.replacer = replacer;
-        }
-
-        public void Execute()
-        {
-            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath)) 
-            {
-                throw new InvalidOperationException("filePath is invalid.");
-            }
-
-            //Encoding encoding = EncodingUtil.GetFileEncoding(filePath);
-            Encoding encoding = TextFileEncodingDetector.DetectTextFileEncoding(filePath, Encoding.Default);
-            //Encoding encoding = EncodingUtil2.GetFileEncoding(filePath);
-            //Encoding encoding = EncodingUtil3.GetFileEncoding(filePath);
-
-            string content = File.ReadAllText(filePath, encoding);
-            string replacedContent = new Regex(this.regexString).Replace(content, this.replacer);
-            File.WriteAllText(filePath, replacedContent, encoding);
-            //Console.Write(".");
-            Console.Write(new FileInfo(filePath).Name + ", ");
-            encoding.Print();
-        }
-    }
 }
 
 
