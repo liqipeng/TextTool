@@ -43,7 +43,8 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(885, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(664, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -53,43 +54,46 @@
             this.ToolStripMenuItemOpen,
             this.ToolStripMenuItemSave});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(51, 24);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 21);
             this.toolStripMenuItem1.Text = "文件";
             // 
             // ToolStripMenuItemOpen
             // 
             this.ToolStripMenuItemOpen.Name = "ToolStripMenuItemOpen";
-            this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(175, 24);
+            this.ToolStripMenuItemOpen.Size = new System.Drawing.Size(100, 22);
             this.ToolStripMenuItemOpen.Text = "打开";
             this.ToolStripMenuItemOpen.Click += new System.EventHandler(this.ToolStripMenuItemOpen_Click);
             // 
             // ToolStripMenuItemSave
             // 
             this.ToolStripMenuItemSave.Name = "ToolStripMenuItemSave";
-            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(175, 24);
+            this.ToolStripMenuItemSave.Size = new System.Drawing.Size(100, 22);
             this.ToolStripMenuItemSave.Text = "保存";
             this.ToolStripMenuItemSave.Click += new System.EventHandler(this.ToolStripMenuItemSave_Click);
             // 
             // enhancedTextBox1
             // 
             this.enhancedTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.enhancedTextBox1.Location = new System.Drawing.Point(0, 28);
+            this.enhancedTextBox1.Location = new System.Drawing.Point(0, 25);
+            this.enhancedTextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.enhancedTextBox1.Multiline = true;
             this.enhancedTextBox1.Name = "enhancedTextBox1";
             this.enhancedTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.enhancedTextBox1.Size = new System.Drawing.Size(885, 548);
+            this.enhancedTextBox1.Size = new System.Drawing.Size(664, 436);
             this.enhancedTextBox1.TabIndex = 1;
             this.enhancedTextBox1.TextChanged += new System.EventHandler(this.enhancedTextBox1_TextChanged);
             // 
             // NotepadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 576);
+            this.ClientSize = new System.Drawing.Size(664, 461);
             this.Controls.Add(this.enhancedTextBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "NotepadForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NotepadForm";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

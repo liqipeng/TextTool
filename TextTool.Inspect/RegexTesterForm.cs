@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TextTool.Common.WindowsForm;
 
 namespace TextTool.Inspect
 {
@@ -126,7 +127,7 @@ namespace TextTool.Inspect
                 sBuilder.AppendFormat("{0}\t{1}\t{2}{3}", code, regex, repl, Environment.NewLine);
             }
 
-            SaveTextForm saveDlg = new SaveTextForm(sBuilder.ToString());
+            NotepadForm saveDlg = new NotepadForm(sBuilder.ToString());
             saveDlg.ShowDialog();
         }
 

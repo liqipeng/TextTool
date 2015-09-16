@@ -110,6 +110,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TextTool.Common.WindowsForm\TextTool.Common.WindowsForm.csproj">
+      <Project>{536d2642-51e2-4011-a08a-024e1aa892ee}</Project>
+      <Name>TextTool.Common.WindowsForm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TextTool.Common\TextTool.Common.csproj">
       <Project>{1af2b559-30d6-4c6f-90c0-3fdd75479e10}</Project>
       <Name>TextTool.Common</Name>

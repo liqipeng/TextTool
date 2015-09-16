@@ -15,6 +15,22 @@ namespace TextTool.Common.WindowsForm
     {
         private string fileName;
 
+        public NotepadForm(string txt)
+        {
+            InitializeComponent();
+
+            this.enhancedTextBox1.KeyDown += enhancedTextBox1_KeyDown;
+            this.enhancedTextBox1.Text = txt;
+        }
+
+        public NotepadForm(string[] lines)
+        {
+            InitializeComponent();
+
+            this.enhancedTextBox1.KeyDown += enhancedTextBox1_KeyDown;
+            this.enhancedTextBox1.Lines = lines;
+        }
+
         public NotepadForm()
         {
             InitializeComponent();
