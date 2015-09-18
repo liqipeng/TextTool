@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.Common.WindowsForm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.Common.WindowsForm.Example", "TextTool.Common.WindowsForm.Example\TextTool.Common.WindowsForm.Example.csproj", "{DA31CC11-B456-47FC-A60F-BEE650C6D70A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTool.GenerateXSDFromDll", "TextTool.GenerateXSDFromDll\TextTool.GenerateXSDFromDll.csproj", "{05288153-6099-470B-B042-3ADD898CA53D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA31CC11-B456-47FC-A60F-BEE650C6D70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05288153-6099-470B-B042-3ADD898CA53D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05288153-6099-470B-B042-3ADD898CA53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05288153-6099-470B-B042-3ADD898CA53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05288153-6099-470B-B042-3ADD898CA53D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
