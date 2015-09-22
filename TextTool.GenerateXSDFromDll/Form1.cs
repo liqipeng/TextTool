@@ -10,14 +10,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using TextTool.Common;
+using TextTool.Common.WindowsForm;
 
 namespace TextTool.GenerateXSDFromDll
 {
-    public partial class Form1 : Form
+    public partial class Form1 : EnhancedForm
     {
         public Form1()
         {
             InitializeComponent();
+
+            EnhancedForm.RememberForm = this;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -155,6 +159,18 @@ namespace TextTool.GenerateXSDFromDll
             else
             {
                 return type.FullName;
+            }
+        }
+
+        protected override List<Control> RememberControls
+        {
+            get
+            {
+                return new List<Control>() 
+                {
+                    this.txtPath,
+                    this.txtClassNames
+                };
             }
         }
     }

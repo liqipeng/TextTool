@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnhancedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EnhancedTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
