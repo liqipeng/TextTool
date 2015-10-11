@@ -24,7 +24,7 @@ namespace TextTool.InvokeEXE
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //ProcessManager.KillAllRegisteredProcesses();
+            ProcessManager.KillAllRegisteredProcesses();
         }
 
         private void startAndStopButton1_OnStartButtonClick()
@@ -41,8 +41,7 @@ namespace TextTool.InvokeEXE
             proc.StartInfo.UseShellExecute = false;
             proc.Exited += new EventHandler((obj, args) => {
                 ProcessManager.Unregister(proc.Id);
-            });
-            
+            });          
 
             if (proc.Start())
             {
@@ -58,7 +57,7 @@ namespace TextTool.InvokeEXE
                     }
                     if (!proc.HasExited)
                     {
-                        //proc.Kill();
+                        proc.Kill();
                     }
                 }
             }
