@@ -20,7 +20,7 @@ namespace TextTool.Common.WindowsForm.Example
             InitializeComponent();
         }
 
-        private void startAndStopButton1_OnStartButtonClick(object sender, EventArgs e)
+        private void startAndStopButton1_OnStartButtonClick()
         {
             int startNumber = Convert.ToInt32(this.lblNumber.Text);
 
@@ -29,13 +29,13 @@ namespace TextTool.Common.WindowsForm.Example
                 while (cancelTokenSource.IsCancellationRequested == false) 
                 {
                     startNumber++;
-                    this.lblNumber.SetTextSafe(startNumber.ToString());
+                    this.lblNumber.SetTextByInvoke(startNumber.ToString());
                     Thread.Sleep(1000);
                 }
             }, cancelTokenSource.Token);
         }
 
-        private void startAndStopButton1_OnCancelButtonClick(object sender, EventArgs e)
+        private void startAndStopButton1_OnCancelButtonClick()
         {
             cancelTokenSource.Cancel();
         }

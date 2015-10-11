@@ -44,6 +44,7 @@
     <Compile Include="EncodingExtension.cs" />
     <Compile Include="FileOrDirectoryUtil.cs" />
     <Compile Include="ITasksFactory`T.cs" />
+    <Compile Include="ProcessManager.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="TextFileEncodingDetector.cs" />
     <Compile Include="ITask.cs" />

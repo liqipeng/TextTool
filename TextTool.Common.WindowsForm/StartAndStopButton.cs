@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace TextTool.Common.WindowsForm
 {
     public partial class StartAndStopButton : UserControl
     {
+        private CancellationTokenSource cancelTokenSource;
+
         public StartAndStopButton()
         {
             InitializeComponent();
@@ -19,22 +22,58 @@ namespace TextTool.Common.WindowsForm
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            SetButtonsStateWhenStart();
-
-            if (OnStartButtonClick != null) 
+            if (OnStartButtonClick != null)
             {
-                OnStartButtonClick(sender, e);
+                SetButtonsStateWhenStart();
+                cancelTokenSource = new CancellationTokenSource();
+                Task.Factory.StartNew(() =>
+                {
+                    Thread workThread = new Thread(() =>
+                    {
+                        OnStartButtonClick();
+                    })
+                    {
+                        IsBackground = true
+                    };
+                    workThread.Start();
+
+                    while (workThread.IsAlive) 
+                    {
+                        try
+                        {
+                            if (cancelTokenSource.IsCancellationRequested) 
+                            {
+                                workThread.Abort();
+                            }
+                        }
+                        catch (ThreadAbortException)
+                        {
+                            break;
+                        }
+                    }
+
+                    SetButtonsStateWhenStop();
+                }, cancelTokenSource.Token);
             }
         }
 
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            Stop();
+        }
+
+        private void Stop() 
+        {
             SetButtonsStateWhenStop();
+            if (!cancelTokenSource.IsCancellationRequested)
+            {
+                cancelTokenSource.Cancel();
+            }
 
             if (OnCancelButtonClick != null)
             {
-                OnCancelButtonClick(sender, e);
+                OnCancelButtonClick();
             }
         }
 
@@ -47,14 +86,7 @@ namespace TextTool.Common.WindowsForm
                 this.btnStop.Enabled = true;
             };
 
-            if (this.InvokeRequired)
-            {
-                this.Invoke(setState);
-            }
-            else
-            {
-                setState();
-            }
+            this.InvokeAction(setState);
         }
 
         private void SetButtonsStateWhenStop()
@@ -66,17 +98,17 @@ namespace TextTool.Common.WindowsForm
                 this.btnStop.Enabled = false;
             };
 
-            if (this.InvokeRequired)
-            {
-                this.Invoke(setState);
-            }
-            else
-            {
-                setState();
-            }
+            this.InvokeAction(setState);
         }
 
-        public event EventHandler OnStartButtonClick;
-        public event EventHandler OnCancelButtonClick;
+        /// <summary>
+        /// 点击开始按钮事件，使用后台后台线程处理
+        /// </summary>
+        public event Action OnStartButtonClick;
+
+        /// <summary>
+        /// 点击取消按钮事件，使用后台后台线程处理
+        /// </summary>
+        public event Action OnCancelButtonClick;
     }
 }

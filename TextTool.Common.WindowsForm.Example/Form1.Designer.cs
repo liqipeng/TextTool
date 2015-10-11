@@ -49,8 +49,8 @@
             this.startAndStopButton1.Name = "startAndStopButton1";
             this.startAndStopButton1.Size = new System.Drawing.Size(316, 30);
             this.startAndStopButton1.TabIndex = 0;
-            this.startAndStopButton1.OnStartButtonClick += new System.EventHandler(this.startAndStopButton1_OnStartButtonClick);
-            this.startAndStopButton1.OnCancelButtonClick += new System.EventHandler(this.startAndStopButton1_OnCancelButtonClick);
+            this.startAndStopButton1.OnStartButtonClick += this.startAndStopButton1_OnStartButtonClick;
+            this.startAndStopButton1.OnCancelButtonClick += this.startAndStopButton1_OnCancelButtonClick;
             // 
             // enhancedTextBox1
             // 

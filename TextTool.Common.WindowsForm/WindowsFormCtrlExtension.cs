@@ -15,7 +15,7 @@ namespace TextTool.Common.WindowsForm
             form.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        public static void SetTextSafe(this Control control, String text) 
+        public static void SetTextByInvoke(this Control control, String text)
         {
             control.InvokeAction(() =>
             {
@@ -23,9 +23,17 @@ namespace TextTool.Common.WindowsForm
             });
         }
 
-        public static void InvokeAction(this Control control, Action action) 
+        public static void AppendTextByInvoke(this Control control, String text, bool newLine = false)
         {
-            if (action != null) 
+            control.InvokeAction(() =>
+            {
+                control.Text += text + (newLine ? Environment.NewLine : String.Empty);
+            });
+        }
+
+        public static void InvokeAction(this Control control, Action action)
+        {
+            if (action != null)
             {
                 if (control.InvokeRequired)
                 {
