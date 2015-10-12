@@ -47,8 +47,6 @@
             this.startAndStopButton1.Name = "startAndStopButton1";
             this.startAndStopButton1.Size = new System.Drawing.Size(237, 24);
             this.startAndStopButton1.TabIndex = 1;
-            this.startAndStopButton1.OnStartButtonClick += this.startAndStopButton1_OnStartButtonClick;
-            this.startAndStopButton1.OnCancelButtonClick += this.startAndStopButton1_OnCancelButtonClick;
             // 
             // txtLog
             // 
@@ -66,6 +64,7 @@
             this.Controls.Add(this.startAndStopButton1);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.txtPath);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
