@@ -21,6 +21,11 @@ namespace TextTool.Cmd
         {
             InitializeComponent();
 
+            StartProcess();
+        }
+
+        private void StartProcess() 
+        {
             myProcess = new Process();
 
             myProcess.StartInfo.FileName = "cmd.exe";
@@ -39,8 +44,6 @@ namespace TextTool.Cmd
             myStreamWriter = myProcess.StandardInput;
             myProcess.BeginOutputReadLine();
             myProcess.BeginErrorReadLine();
-
-            //myStreamWriter.WriteLine(Environment.NewLine);
         }
 
         private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -70,12 +73,18 @@ namespace TextTool.Cmd
                         this.enhancedTextBox1.InvokeAction(() => { this.enhancedTextBox1.Lines = targetLines; });
                     }
 
+                    //if (!myStreamWriter.BaseStream.CanWrite) 
+                    //{
+                    //    myProcess.BeginOutputReadLine();
+                    //    myProcess.BeginErrorReadLine();
+                    //}
+
                     myStreamWriter.WriteLine(inputText);
                 }
             }
             else if (e.KeyCode == Keys.C && e.Control)
             {
-                myProcess.CancelOutputRead();
+                
             }
         }
 
