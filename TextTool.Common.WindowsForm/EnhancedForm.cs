@@ -51,7 +51,7 @@ namespace TextTool.Common.WindowsForm
                 List<String> lstRememberValues = new List<string>();
                 RememberForm.RememberControls.ForEach((ctrl) =>
                 {
-                    lstRememberValues.Add(ctrl.Text);
+                    lstRememberValues.Add(GetValueFromCtrl(ctrl));
                 });
 
                 using (FileStream fs = new FileStream(rememberControlsFilePath, FileMode.OpenOrCreate))
@@ -61,9 +61,45 @@ namespace TextTool.Common.WindowsForm
             }
         }
 
+        private static string GetValueFromCtrl(Control ctrl) 
+        {
+            Type ctrlType = ctrl.GetType();
+            if (ctrlType == typeof(ComboBox))
+            {
+                return (ctrl as ComboBox).SelectedItem.ToString();
+            }
+            else 
+            {
+                return ctrl.Text;
+            }
+        }
+
+        private static void SetValueFromCtrl(Control ctrl, string val)
+        {
+            Type ctrlType = ctrl.GetType();
+            if (ctrlType == typeof(ComboBox))
+            {
+                var cmb = ctrl as ComboBox;
+                if(cmb != null && (cmb.SelectedItem == null || cmb.SelectedItem.ToString().Trim() == string.Empty))
+                {
+                    cmb.SelectedItem = val;
+                }
+            }
+            else
+            {
+                //如果为空，不覆盖已经设置的值
+                if (ctrl.Text.Trim() == string.Empty) 
+                {
+                    ctrl.Text = val;
+                }
+            }
+        }
+
         private static void OnRememberFormLoad(object sender, EventArgs e)
         {
-            if (RememberForm.RememberControls != null && RememberForm.RememberControls.Count > 0 && File.Exists(rememberControlsFilePath))
+            if (RememberForm.RememberControls != null 
+                && RememberForm.RememberControls.Count > 0
+                && File.Exists(rememberControlsFilePath))
             {
                 try
                 {
@@ -71,9 +107,15 @@ namespace TextTool.Common.WindowsForm
                     {
                         List<String> lstRememberValues = Serializer.DeserializeFromBinary<List<String>>(fs);
 
+                        if (lstRememberValues == null || RememberForm.RememberControls.Count != lstRememberValues.Count) 
+                        {
+                            File.Delete(rememberControlsFilePath);
+                            return;
+                        }
+
                         for (int i = 0; i < lstRememberValues.Count; i++)
                         {
-                            RememberForm.RememberControls[i].Text = lstRememberValues[i];
+                            SetValueFromCtrl(RememberForm.RememberControls[i], lstRememberValues[i]);
                         }
                     }
                 }
