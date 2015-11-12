@@ -33,23 +33,25 @@
             this.txtClassNames = new TextTool.Common.WindowsForm.EnhancedTextBox();
             this.txtResult = new TextTool.Common.WindowsForm.EnhancedTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(78, 10);
+            this.txtPath.Location = new System.Drawing.Point(104, 12);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(616, 21);
+            this.txtPath.Size = new System.Drawing.Size(820, 25);
             this.txtPath.TabIndex = 0;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(700, 8);
+            this.btnOK.Location = new System.Drawing.Point(933, 10);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(100, 29);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -57,20 +59,22 @@
             // 
             // txtClassNames
             // 
-            this.txtClassNames.Location = new System.Drawing.Point(15, 37);
+            this.txtClassNames.Location = new System.Drawing.Point(20, 46);
+            this.txtClassNames.Margin = new System.Windows.Forms.Padding(4);
             this.txtClassNames.Multiline = true;
             this.txtClassNames.Name = "txtClassNames";
-            this.txtClassNames.Size = new System.Drawing.Size(760, 114);
+            this.txtClassNames.Size = new System.Drawing.Size(1012, 142);
             this.txtClassNames.TabIndex = 2;
             // 
             // txtResult
             // 
             this.txtResult.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtResult.Location = new System.Drawing.Point(0, 183);
+            this.txtResult.Location = new System.Drawing.Point(0, 230);
+            this.txtResult.Margin = new System.Windows.Forms.Padding(4);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResult.Size = new System.Drawing.Size(800, 356);
+            this.txtResult.Size = new System.Drawing.Size(1067, 444);
             this.txtResult.TabIndex = 3;
             // 
             // panel1
@@ -82,36 +86,40 @@
             this.panel1.Controls.Add(this.txtClassNames);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 177);
+            this.panel1.Size = new System.Drawing.Size(1067, 221);
             this.panel1.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "dll路径：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 158);
+            this.label2.Location = new System.Drawing.Point(20, 198);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 12);
+            this.label2.Size = new System.Drawing.Size(370, 15);
             this.label2.TabIndex = 4;
-            this.label2.Text = "以英文逗号（,）分割";
+            this.label2.Text = "↑以英文逗号（,）分割，填入需要生成的Class的全名";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "dll路径：";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 539);
+            this.ClientSize = new System.Drawing.Size(1067, 674);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtResult);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

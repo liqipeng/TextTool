@@ -22,6 +22,11 @@ namespace TextTool.GenerateXSDFromDll
             InitializeComponent();
 
             EnhancedForm.RememberForm = this;
+
+#if DEBUG
+            this.txtPath.Text = Application.ExecutablePath;
+            this.txtClassNames.Text = typeof(CommentType).Name;
+#endif
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -42,7 +47,16 @@ namespace TextTool.GenerateXSDFromDll
                     Assembly assembly = Assembly.LoadFrom(dllPath);
                     Type type = assembly.GetTypes().Where(t => t.Name == keyword).Single();
 
-                    string xmlDocPath = Regex.Replace(new FileInfo(dllPath).FullName, "\\.[Dd][Ll]{2}$", ".XML");
+                    var dllFi = new FileInfo(dllPath);
+                    string xmlDocPath = String.Empty;
+                    if (dllFi.FullName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                    {
+                        xmlDocPath = Regex.Replace(dllFi.FullName, "\\.[Dd][Ll]{2}$", ".XML");
+                    }
+                    else if (dllFi.FullName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+                    {
+                        xmlDocPath = Regex.Replace(dllFi.FullName, "\\.[Ee][Xx][Ee]$", ".XML");
+                    }
                     bool hasDoc = false;
                     XDocument xDoc = new XDocument();
 
@@ -71,7 +85,7 @@ namespace TextTool.GenerateXSDFromDll
                             }
 
                             sBuilder.AppendFormat(@"<xs:appinfo>
-                                    <EnumerationValue xmlns=""http://schemas.microsoft.com/2003/10/Serialization/"">{1}</EnumerationValue>
+                                    <EnumerationValue xmlns=""http://schemas.microsoft.com/2003/10/Serialization/"">{0}</EnumerationValue>
                                   </xs:appinfo>
                                 </xs:annotation>
                               </xs:enumeration>", (int)Enum.Parse(type, name));
@@ -175,7 +189,7 @@ namespace TextTool.GenerateXSDFromDll
         }
     }
 
-    enum CommentType
+    public enum CommentType
     {
         Type,
         Property
