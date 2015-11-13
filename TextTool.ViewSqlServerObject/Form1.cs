@@ -76,7 +76,10 @@ namespace TextTool.ViewSqlServerObject
 
                     if (result != null)
                     {
-                        this.txtContent.SetTextByInvoke(result.ToString());
+                        //this.txtContent.SetTextByInvoke(result.ToString());
+                        this.txtContent.InvokeAction(() => {
+                            this.txtContent.Document.TextContent = result.ToString();
+                        });
                     }
                     else
                     {

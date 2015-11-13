@@ -13,16 +13,18 @@ namespace TextTool.Common.WindowsForm
 {
     public partial class StartAndStopButton : UserControl
     {
-        private CancellationTokenSource cancelTokenSource;
         private const string defalult_normal_text = "开始处理";
         private const string defalult_busy_text = "正在处理......";
+
+        private CancellationTokenSource cancelTokenSource;
+        private string normalText = defalult_normal_text;
+        private string busyText = defalult_busy_text;
 
         public StartAndStopButton()
         {
             InitializeComponent();
 
-            this.NormalText = defalult_normal_text;
-            this.BusyText = defalult_busy_text;
+            this.btnStart.Text = this.NormalText;
         }
 
         [Description("正常状态的文本")]
@@ -30,11 +32,11 @@ namespace TextTool.Common.WindowsForm
         {
             get
             {
-                return this.btnStart.Text;
+                return normalText;
             }
             set
             {
-                this.btnStart.Text = value;
+                normalText = value;
             }
         }
 
@@ -43,11 +45,11 @@ namespace TextTool.Common.WindowsForm
         {
             get
             {
-                return this.btnStart.Text;
+                return this.busyText;
             }
             set
             {
-                this.btnStart.Text = value;
+                this.busyText = value;
             }
         }
 
