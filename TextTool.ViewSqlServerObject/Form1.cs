@@ -34,7 +34,8 @@ namespace TextTool.ViewSqlServerObject
                 return new List<Control>() 
                 {
                     this.txtContent,
-                    this.cmbDB
+                    this.cmbDB,
+                    this.txtSPName
                 };
             }
         }

@@ -14,10 +14,41 @@ namespace TextTool.Common.WindowsForm
     public partial class StartAndStopButton : UserControl
     {
         private CancellationTokenSource cancelTokenSource;
+        private const string defalult_normal_text = "开始处理";
+        private const string defalult_busy_text = "正在处理......";
 
         public StartAndStopButton()
         {
             InitializeComponent();
+
+            this.NormalText = defalult_normal_text;
+            this.BusyText = defalult_busy_text;
+        }
+
+        [Description("正常状态的文本")]
+        public string NormalText
+        {
+            get
+            {
+                return this.btnStart.Text;
+            }
+            set
+            {
+                this.btnStart.Text = value;
+            }
+        }
+
+        [Description("忙碌状态的文本")]
+        public string BusyText
+        {
+            get
+            {
+                return this.btnStart.Text;
+            }
+            set
+            {
+                this.btnStart.Text = value;
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -37,11 +68,11 @@ namespace TextTool.Common.WindowsForm
                     };
                     workThread.Start();
 
-                    while (workThread.IsAlive) 
+                    while (workThread.IsAlive)
                     {
                         try
                         {
-                            if (cancelTokenSource.IsCancellationRequested) 
+                            if (cancelTokenSource.IsCancellationRequested)
                             {
                                 workThread.Abort();
                             }
@@ -63,7 +94,7 @@ namespace TextTool.Common.WindowsForm
             Stop();
         }
 
-        private void Stop() 
+        private void Stop()
         {
             SetButtonsStateWhenStop();
             if (!cancelTokenSource.IsCancellationRequested)
@@ -82,7 +113,7 @@ namespace TextTool.Common.WindowsForm
             Action setState = () =>
             {
                 this.btnStart.Enabled = false;
-                this.btnStart.Text = "正在处理......";
+                this.btnStart.Text = this.BusyText ?? defalult_busy_text;
                 this.btnStop.Enabled = true;
             };
 
@@ -94,7 +125,7 @@ namespace TextTool.Common.WindowsForm
             Action setState = () =>
             {
                 this.btnStart.Enabled = true;
-                this.btnStart.Text = "开始处理";
+                this.btnStart.Text = this.NormalText ?? defalult_normal_text;
                 this.btnStop.Enabled = false;
             };
 

@@ -66,7 +66,9 @@ namespace TextTool.Common.WindowsForm
             Type ctrlType = ctrl.GetType();
             if (ctrlType == typeof(ComboBox))
             {
-                return (ctrl as ComboBox).SelectedItem.ToString();
+                object item = (ctrl as ComboBox).SelectedItem;
+
+                return item != null ? item.ToString() : null;
             }
             else 
             {
@@ -82,7 +84,7 @@ namespace TextTool.Common.WindowsForm
                 var cmb = ctrl as ComboBox;
                 if(cmb != null && (cmb.SelectedItem == null || cmb.SelectedItem.ToString().Trim() == string.Empty))
                 {
-                    cmb.SelectedItem = val;
+                    cmb.SelectedText = val;
                 }
             }
             else
