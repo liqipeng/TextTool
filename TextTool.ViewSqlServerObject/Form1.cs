@@ -72,14 +72,17 @@ namespace TextTool.ViewSqlServerObject
                             FROM syscomments
                             WHERE id = (SELECT TOP 1 id FROM sysobjects WHERE name like @SPName)";
                     cmd.Parameters.Add(new SqlParameter("@SPName", string.Format("%{0}%", txtSPName.Text.Trim())) { DbType = DbType.String, Size = 256 });
-                    var result = cmd.ExecuteScalar();
+                    var reader = cmd.ExecuteReader();
 
-                    if (result != null)
+                    StringBuilder sbSQL = new StringBuilder();
+                    while (reader.Read())
                     {
-                        //this.txtContent.SetTextByInvoke(result.ToString());
-                        this.txtContent.InvokeAction(() => {
-                            this.txtContent.Document.TextContent = result.ToString();
-                        });
+                        sbSQL.Append(reader[0]);
+                    }
+
+                    if (sbSQL.ToString().Length > 0)
+                    {
+                        this.txtContent.SetTextByInvoke(sbSQL.ToString());
                     }
                     else
                     {
