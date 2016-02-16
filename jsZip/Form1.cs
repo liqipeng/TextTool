@@ -241,5 +241,24 @@ namespace jsZip
 
 			return strReturn;
 		}
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control) 
+            {
+                this.txtCode.SelectAll();
+            }
+        }
+
+        private void btnCompressJs_Click(object sender, EventArgs e)
+        {
+            JavaScriptCompressor js = new JavaScriptCompressor(txtCode.Text, false, GetEncoding(), System.Globalization.CultureInfo.CurrentCulture);
+            txtCode.Text = js.Compress();
+        }
+
+        private void btnCompressCss_Click(object sender, EventArgs e)
+        {
+            txtCode.Text = CssCompressor.Compress(txtCode.Text);
+        }
 	}
 }
